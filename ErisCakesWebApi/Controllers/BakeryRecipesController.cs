@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ErisCakesWebApi.Data;
 using ErisCakesWebApi.Models;
+using AutoMapper;
+using ErisCakesWebApi.Dto;
 
 namespace ErisCakesWebApi.Controllers
 {
@@ -15,10 +17,12 @@ namespace ErisCakesWebApi.Controllers
     public class BakeryRecipesController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public BakeryRecipesController(DataContext context)
+        public BakeryRecipesController(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/BakeryRecipes
@@ -29,7 +33,7 @@ namespace ErisCakesWebApi.Controllers
           {
               return NotFound();
           }
-            return await _context.BakeryRecipes.ToListAsync();
+            return Ok(_mapper.Map<List<BakeryRecipeDTO>>(await _context.BakeryRecipes.ToListAsync()));
         }
 
         // GET: api/BakeryRecipes/5
@@ -40,14 +44,14 @@ namespace ErisCakesWebApi.Controllers
           {
               return NotFound();
           }
-            var bakeryRecipe = await _context.BakeryRecipes.FindAsync(id);
+            var bakeryRecipe = _mapper.Map<BakeryRecipeDTO>(await _context.BakeryRecipes.FindAsync(id));
 
             if (bakeryRecipe == null)
             {
                 return NotFound();
             }
 
-            return bakeryRecipe;
+            return Ok(bakeryRecipe);
         }
 
         // PUT: api/BakeryRecipes/5

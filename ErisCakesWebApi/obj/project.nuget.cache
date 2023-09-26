@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "5Qe2jj5qh7z2x9luFKECfF7rsHK/2IO3f1yJ2Sk5bBmOuBXlDNrxCwsyfNtJ810suiEpl/t/LTEUE8bYhbTQVQ==",
+  "dgSpecHash": "IOzXNOe7+zocqBuedn0LNDRmRPxSymoTNSc053nS2AB5QZO4BYs8uiUxcQgBmPG3AdMgan2DkVPaXiq6YPEEYw==",
   "success": true,
   "projectFilePath": "C:\\Users\\mirko\\source\\repos\\ErisCakesWebApi\\ErisCakesWebApi\\ErisCakesWebApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\mirko\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\mirko\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\mirko\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\mirko\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\mirko\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
@@ -73,7 +75,7 @@
     "C:\\Users\\mirko\\.nuget\\packages\\microsoft.codeanalysis.razor\\6.0.0\\microsoft.codeanalysis.razor.6.0.0.nupkg.sha512",
     "C:\\Users\\mirko\\.nuget\\packages\\microsoft.codeanalysis.scripting.common\\4.0.0\\microsoft.codeanalysis.scripting.common.4.0.0.nupkg.sha512",
     "C:\\Users\\mirko\\.nuget\\packages\\microsoft.codeanalysis.workspaces.common\\4.0.0\\microsoft.codeanalysis.workspaces.common.4.0.0.nupkg.sha512",
-    "C:\\Users\\mirko\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\mirko\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\mirko\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.1\\microsoft.data.sqlclient.5.1.1.nupkg.sha512",
     "C:\\Users\\mirko\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.1.0\\microsoft.data.sqlclient.sni.runtime.5.1.0.nupkg.sha512",
     "C:\\Users\\mirko\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.21\\microsoft.data.sqlite.core.6.0.21.nupkg.sha512",

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ErisCakesWebApi.Data;
 using ErisCakesWebApi.Models;
+using AutoMapper;
+using ErisCakesWebApi.Dto;
+using System.Collections.Generic;
 
 namespace ErisCakesWebApi.Controllers
 {
@@ -15,10 +13,12 @@ namespace ErisCakesWebApi.Controllers
     public class ClientsController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public ClientsController(DataContext context)
+        public ClientsController(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Clients1
@@ -29,7 +29,7 @@ namespace ErisCakesWebApi.Controllers
           {
               return NotFound();
           }
-            return await _context.Clients.ToListAsync();
+            return Ok(_mapper.Map<List<ClientDTO>>(await _context.Clients.ToListAsync()));
         }
 
         // GET: api/Clients1/5
@@ -40,14 +40,14 @@ namespace ErisCakesWebApi.Controllers
           {
               return NotFound();
           }
-            var client = await _context.Clients.FindAsync(id);
+            var client = _mapper.Map<ClientDTO>(await _context.Clients.FindAsync(id));
 
             if (client == null)
             {
                 return NotFound();
             }
 
-            return client;
+            return Ok(client);
         }
 
         // PUT: api/Clients1/5
