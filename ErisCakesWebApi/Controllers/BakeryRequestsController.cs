@@ -60,6 +60,10 @@ namespace ErisCakesWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBakeryRequest(int id, BakeryRequest bakeryRequest)
         {
+            if (id != bakeryRequest.Id)
+            {
+                return BadRequest();
+            }
             return Ok(_bakeryRequestRepository.EditBakeryRequest(bakeryRequest));
         }
 

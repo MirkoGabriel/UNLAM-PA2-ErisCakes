@@ -23,17 +23,33 @@ namespace ErisCakesWebApi.Repository
 
         public void DeleteBakeryRequest(int id)
         {
-            throw new NotImplementedException();
+            var bakeryRequest = _context.BakeryRequests.FindAsync(id);
+            _context.Remove(bakeryRequest);
+            _context.SaveChangesAsync();
         }
 
         public BakeryRequest EditBakeryRequest(BakeryRequest bakeryRequest)
         {
-            throw new NotImplementedException();
+            var dbBakeryRequest = _context.BakeryRequests.First(br => br.Id == bakeryRequest.Id);
+            dbBakeryRequest.RecipeStatus = bakeryRequest.RecipeStatus;
+            dbBakeryRequest.BillingStatus = bakeryRequest.BillingStatus;
+            dbBakeryRequest.BudgetPice = bakeryRequest.BudgetPice;
+            dbBakeryRequest.AdmissionDate = bakeryRequest.AdmissionDate;
+            dbBakeryRequest.EstimateDeliveryDate = bakeryRequest.EstimateDeliveryDate;
+            dbBakeryRequest.HomeDelivery = bakeryRequest.HomeDelivery;
+            dbBakeryRequest.ShippingPrice = bakeryRequest.ShippingPrice;
+            dbBakeryRequest.AdditionalComments = bakeryRequest.AdditionalComments;
+            dbBakeryRequest.JobScore = bakeryRequest.JobScore;
+            dbBakeryRequest.ClientId = bakeryRequest.ClientId;
+            dbBakeryRequest.BakeryRequestRecipes = bakeryRequest.BakeryRequestRecipes;
+            //_context.Entry(bakeryRequest).State = EntityState.Modified;
+            _context.SaveChanges();
+            return bakeryRequest;
+
         }
 
         public BakeryRequest GetBakeryRequest(int id)
         {
-            //return _context.BakeryRequests.Where(br => br.Id == id).Include(c => c.Client).FirstOrDefault();
             return _context.BakeryRequests
                 .AsNoTracking()
                 .Include(br => br.Client)
