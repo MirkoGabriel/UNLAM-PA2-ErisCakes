@@ -30,10 +30,6 @@ namespace ErisCakesWebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Ingredients")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -43,6 +39,13 @@ namespace ErisCakesWebApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Procedure")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -70,14 +73,17 @@ namespace ErisCakesWebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("BudgetPice")
+                        .HasColumnType("float");
+
                     b.Property<int?>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EstimateDeliveryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("EstimatedPrice")
-                        .HasColumnType("float");
+                    b.Property<bool>("HomeDelivery")
+                        .HasColumnType("bit");
 
                     b.Property<int>("JobScore")
                         .HasColumnType("int");
@@ -85,6 +91,9 @@ namespace ErisCakesWebApi.Migrations
                     b.Property<string>("RecipeStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ShippingPrice")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -116,7 +125,7 @@ namespace ErisCakesWebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Adress")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

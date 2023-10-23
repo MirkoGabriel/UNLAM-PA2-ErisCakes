@@ -6,6 +6,9 @@ namespace ErisCakesWebApi.Interfaces
     {
         ICollection<BakeryRequest> GetBakeryRequests();
         BakeryRequest GetBakeryRequest(int id);
+        ICollection<BakeryRequest> GetBakeryRequestByStatus(String status);
         BakeryRequest CreateBakeryRequest(BakeryRequest bakeryRequest);
+        BakeryRequest EditBakeryRequest(BakeryRequest bakeryRequest);
+        void DeleteBakeryRequest(int id);
     }
 }

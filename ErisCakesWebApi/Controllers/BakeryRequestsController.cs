@@ -9,6 +9,9 @@ using ErisCakesWebApi.Data;
 using ErisCakesWebApi.Models;
 using ErisCakesWebApi.Dto;
 using AutoMapper;
+using NuGet.Versioning;
+using ErisCakesWebApi.Interfaces;
+using ErisCakesWebApi.Repository;
 
 namespace ErisCakesWebApi.Controllers
 {
@@ -16,12 +19,12 @@ namespace ErisCakesWebApi.Controllers
     [ApiController]
     public class BakeryRequestsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IBakeryRequestRepository _bakeryRequestRepository;
         private readonly IMapper _mapper;
 
-        public BakeryRequestsController(DataContext context, IMapper mapper)
+        public BakeryRequestsController(IBakeryRequestRepository bakeryRequestRepository, IMapper mapper)
         {
-            _context = context;
+            _bakeryRequestRepository = bakeryRequestRepository;
             _mapper = mapper;
         }
 
@@ -29,32 +32,20 @@ namespace ErisCakesWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BakeryRequest>>> GetBakeryRequests()
         {
-          if (_context.BakeryRequests == null)
-          {
-              return NotFound();
-          }
-            var bakeryRequest = await _context.BakeryRequests
-                .AsNoTracking()
-                .Include(br => br.Client)
-                .Include(br => br.BakeryRequestRecipes).ThenInclude(brr => brr.BakeryRecipe)
-                .ToListAsync();
-
-            return Ok(_mapper.Map<List<BakeryRequestDTO>>(bakeryRequest));
+            return Ok(_mapper.Map<List<BakeryRequestDTO>>(_bakeryRequestRepository.GetBakeryRequests()));
+        }
+        // GET: api/BakeryRequests/status
+        [HttpGet("getByStatus/{status}")]
+        public async Task<ActionResult<IEnumerable<BakeryRequest>>> GetBakeryRequestsByStatus(String status)
+        {
+            return Ok(_mapper.Map<List<BakeryRequestDTO>>(_bakeryRequestRepository.GetBakeryRequestByStatus(status)));
         }
 
         // GET: api/BakeryRequests/5
-        [HttpGet("{id}")]
+        [HttpGet("getById/{id}")]
         public async Task<ActionResult<BakeryRequest>> GetBakeryRequest(int id)
         {
-          if (_context.BakeryRequests == null)
-          {
-              return NotFound();
-          }
-            var bakeryRequest = await _context.BakeryRequests
-                .AsNoTracking()
-                .Include(br => br.Client)
-                .Include(br => br.BakeryRequestRecipes).ThenInclude(brr => brr.BakeryRecipe)
-                .SingleOrDefaultAsync(br => br.Id == id);
+            var bakeryRequest = _bakeryRequestRepository.GetBakeryRequest(id);
 
             if (bakeryRequest == null)
             {
@@ -69,30 +60,7 @@ namespace ErisCakesWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBakeryRequest(int id, BakeryRequest bakeryRequest)
         {
-            if (id != bakeryRequest.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(bakeryRequest).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BakeryRequestExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(_bakeryRequestRepository.EditBakeryRequest(bakeryRequest));
         }
 
         // POST: api/BakeryRequests
@@ -100,39 +68,17 @@ namespace ErisCakesWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<BakeryRequest>> PostBakeryRequest(BakeryRequest bakeryRequest)
         {
-          if (_context.BakeryRequests == null)
-          {
-              return Problem("Entity set 'DataContext.BakeryRequests'  is null.");
-          }
-            _context.BakeryRequests.Add(bakeryRequest);
-            await _context.SaveChangesAsync();
+            _bakeryRequestRepository.CreateBakeryRequest(bakeryRequest);
 
-            return CreatedAtAction("GetBakeryRequest", new { id = bakeryRequest.Id }, bakeryRequest);
+            return CreatedAtAction("PostBakeryRequest", new { id = bakeryRequest.Id }, bakeryRequest);
         }
 
         // DELETE: api/BakeryRequests/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBakeryRequest(int id)
         {
-            if (_context.BakeryRequests == null)
-            {
-                return NotFound();
-            }
-            var bakeryRequest = await _context.BakeryRequests.FindAsync(id);
-            if (bakeryRequest == null)
-            {
-                return NotFound();
-            }
-
-            _context.BakeryRequests.Remove(bakeryRequest);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool BakeryRequestExists(int id)
-        {
-            return (_context.BakeryRequests?.Any(e => e.Id == id)).GetValueOrDefault();
+            _bakeryRequestRepository.DeleteBakeryRequest(id);
+            return Ok();
         }
     }
 }

@@ -21,6 +21,30 @@ namespace ErisCakesWebApi.Repository
             return bakeryRecipe;
         }
 
+        public void DeleteBakeryRecipe(int id)
+        {
+            var bakeryRecipe = _context.BakeryRecipes.FindAsync(id);
+            _context.Remove(bakeryRecipe);
+            _context.SaveChangesAsync();
+        }
+
+        public BakeryRecipe EditBakeryRecipe(BakeryRecipe bakeryRecipe)
+        {
+            var dbBakeryRecipe = _context.BakeryRecipes.First(br => br.Id == bakeryRecipe.Id);
+            dbBakeryRecipe.Name = bakeryRecipe.Name;
+            dbBakeryRecipe.Kind = bakeryRecipe.Kind;
+            dbBakeryRecipe.Name = bakeryRecipe.Name;
+            dbBakeryRecipe.Ingredients = bakeryRecipe.Ingredients;
+            dbBakeryRecipe.Procedure = bakeryRecipe.Procedure;
+            dbBakeryRecipe.Price = bakeryRecipe.Price;
+            _context.SaveChanges();
+
+            return bakeryRecipe;
+
+        }
+
+
+
         public BakeryRecipe GetBakeryRecipe(int id)
         {
             return _context.BakeryRecipes.Where(br => br.Id == id).FirstOrDefault();

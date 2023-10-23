@@ -9,6 +9,7 @@ using ErisCakesWebApi.Data;
 using ErisCakesWebApi.Models;
 using AutoMapper;
 using ErisCakesWebApi.Dto;
+using ErisCakesWebApi.Interfaces;
 
 namespace ErisCakesWebApi.Controllers
 {
@@ -16,12 +17,12 @@ namespace ErisCakesWebApi.Controllers
     [ApiController]
     public class BakeryRecipesController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IBakeryRecipesRepository _bakeryRecipesRepository;
         private readonly IMapper _mapper;
 
-        public BakeryRecipesController(DataContext context, IMapper mapper)
+        public BakeryRecipesController(IBakeryRecipesRepository bakeryRecipesRepository, IMapper mapper)
         {
-            _context = context;
+            _bakeryRecipesRepository = bakeryRecipesRepository;
             _mapper = mapper;
         }
 
@@ -29,22 +30,14 @@ namespace ErisCakesWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BakeryRecipe>>> GetBakeryRecipes()
         {
-          if (_context.BakeryRecipes == null)
-          {
-              return NotFound();
-          }
-            return Ok(_mapper.Map<List<BakeryRecipeDTO>>(await _context.BakeryRecipes.ToListAsync()));
+            return Ok(_mapper.Map<List<BakeryRecipeDTO>>(_bakeryRecipesRepository.GetBakeryRecipes()));
         }
 
         // GET: api/BakeryRecipes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BakeryRecipe>> GetBakeryRecipe(int id)
         {
-          if (_context.BakeryRecipes == null)
-          {
-              return NotFound();
-          }
-            var bakeryRecipe = _mapper.Map<BakeryRecipeDTO>(await _context.BakeryRecipes.FindAsync(id));
+            var bakeryRecipe = _mapper.Map<BakeryRecipeDTO>(_bakeryRecipesRepository.GetBakeryRecipe(id));
 
             if (bakeryRecipe == null)
             {
@@ -59,30 +52,7 @@ namespace ErisCakesWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBakeryRecipe(int id, BakeryRecipe bakeryRecipe)
         {
-            if (id != bakeryRecipe.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(bakeryRecipe).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BakeryRecipeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(_bakeryRecipesRepository.EditBakeryRecipe(bakeryRecipe));
         }
 
         // POST: api/BakeryRecipes
@@ -90,12 +60,11 @@ namespace ErisCakesWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<BakeryRecipe>> PostBakeryRecipe(BakeryRecipe bakeryRecipe)
         {
-          if (_context.BakeryRecipes == null)
+          if(bakeryRecipe.Price < 0)
           {
-              return Problem("Entity set 'DataContext.BakeryRecipes'  is null.");
+              throw new ArgumentException("Recipe price must be gratter than 0");
           }
-            _context.BakeryRecipes.Add(bakeryRecipe);
-            await _context.SaveChangesAsync();
+            _bakeryRecipesRepository.CreateBakeryRecipe(bakeryRecipe);
 
             return CreatedAtAction("GetBakeryRecipe", new { id = bakeryRecipe.Id }, bakeryRecipe);
         }
@@ -104,25 +73,10 @@ namespace ErisCakesWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBakeryRecipe(int id)
         {
-            if (_context.BakeryRecipes == null)
-            {
-                return NotFound();
-            }
-            var bakeryRecipe = await _context.BakeryRecipes.FindAsync(id);
-            if (bakeryRecipe == null)
-            {
-                return NotFound();
-            }
-
-            _context.BakeryRecipes.Remove(bakeryRecipe);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            _bakeryRecipesRepository.DeleteBakeryRecipe(id);
+            return Ok();
         }
 
-        private bool BakeryRecipeExists(int id)
-        {
-            return (_context.BakeryRecipes?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+        
     }
 }

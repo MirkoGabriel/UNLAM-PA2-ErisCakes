@@ -5,6 +5,8 @@ using ErisCakesWebApi.Models;
 using AutoMapper;
 using ErisCakesWebApi.Dto;
 using System.Collections.Generic;
+using ErisCakesWebApi.Interfaces;
+using ErisCakesWebApi.Repository;
 
 namespace ErisCakesWebApi.Controllers
 {
@@ -12,12 +14,12 @@ namespace ErisCakesWebApi.Controllers
     [ApiController]
     public class ClientsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IClientsRepository _clientsRepository;
         private readonly IMapper _mapper;
 
-        public ClientsController(DataContext context, IMapper mapper)
+        public ClientsController(IClientsRepository clientsRepository, IMapper mapper)
         {
-            _context = context;
+            _clientsRepository = clientsRepository;
             _mapper = mapper;
         }
 
@@ -25,22 +27,14 @@ namespace ErisCakesWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetClients()
         {
-          if (_context.Clients == null)
-          {
-              return NotFound();
-          }
-            return Ok(_mapper.Map<List<ClientDTO>>(await _context.Clients.ToListAsync()));
+            return Ok(_mapper.Map<List<ClientDTO>>(_clientsRepository.GetClients()));
         }
 
         // GET: api/Clients1/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Client>> GetClient(int id)
         {
-          if (_context.Clients == null)
-          {
-              return NotFound();
-          }
-            var client = _mapper.Map<ClientDTO>(await _context.Clients.FindAsync(id));
+            var client = _mapper.Map<ClientDTO>(_clientsRepository.GetClient(id));
 
             if (client == null)
             {
@@ -55,30 +49,7 @@ namespace ErisCakesWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutClient(int id, Client client)
         {
-            if (id != client.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(client).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClientExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(_clientsRepository.EditClient(client));
         }
 
         // POST: api/Clients1
@@ -86,39 +57,18 @@ namespace ErisCakesWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Client>> PostClient(Client client)
         {
-          if (_context.Clients == null)
-          {
-              return Problem("Entity set 'DataContext.Clients'  is null.");
-          }
-            _context.Clients.Add(client);
-            await _context.SaveChangesAsync();
+            _clientsRepository.CreateClient(client);
 
-            return CreatedAtAction("GetClient", new { id = client.Id }, client);
+            return CreatedAtAction("PostClient", new { id = client.Id }, client);
         }
 
         // DELETE: api/Clients1/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClient(int id)
         {
-            if (_context.Clients == null)
-            {
-                return NotFound();
-            }
-            var client = await _context.Clients.FindAsync(id);
-            if (client == null)
-            {
-                return NotFound();
-            }
-
-            _context.Clients.Remove(client);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            _clientsRepository.DeleteClient(id);
+            return Ok();
         }
 
-        private bool ClientExists(int id)
-        {
-            return (_context.Clients?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
     }
 }
