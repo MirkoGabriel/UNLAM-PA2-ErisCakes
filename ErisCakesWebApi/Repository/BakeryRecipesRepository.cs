@@ -23,9 +23,9 @@ namespace ErisCakesWebApi.Repository
 
         public void DeleteBakeryRecipe(int id)
         {
-            var bakeryRecipe = _context.BakeryRecipes.FindAsync(id);
+            var bakeryRecipe = _context.BakeryRecipes.Find(id);
             _context.Remove(bakeryRecipe);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public BakeryRecipe EditBakeryRecipe(BakeryRecipe bakeryRecipe)

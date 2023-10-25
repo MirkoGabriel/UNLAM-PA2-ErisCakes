@@ -46,8 +46,8 @@ namespace ErisCakesWebApi.Controllers
 
         // PUT: api/Clients1/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutClient(int id, Client client)
+        [HttpPut]
+        public async Task<IActionResult> PutClient(Client client)
         {
             return Ok(_clientsRepository.EditClient(client));
         }
@@ -67,7 +67,7 @@ namespace ErisCakesWebApi.Controllers
         public async Task<IActionResult> DeleteClient(int id)
         {
             _clientsRepository.DeleteClient(id);
-            return Ok();
+            return NoContent();
         }
 
     }

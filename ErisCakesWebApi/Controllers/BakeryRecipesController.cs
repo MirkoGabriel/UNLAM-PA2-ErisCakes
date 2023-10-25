@@ -49,8 +49,8 @@ namespace ErisCakesWebApi.Controllers
 
         // PUT: api/BakeryRecipes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBakeryRecipe(int id, BakeryRecipe bakeryRecipe)
+        [HttpPut]
+        public async Task<IActionResult> PutBakeryRecipe(BakeryRecipe bakeryRecipe)
         {
             return Ok(_bakeryRecipesRepository.EditBakeryRecipe(bakeryRecipe));
         }
@@ -74,7 +74,7 @@ namespace ErisCakesWebApi.Controllers
         public async Task<IActionResult> DeleteBakeryRecipe(int id)
         {
             _bakeryRecipesRepository.DeleteBakeryRecipe(id);
-            return Ok();
+            return NoContent();
         }
 
         

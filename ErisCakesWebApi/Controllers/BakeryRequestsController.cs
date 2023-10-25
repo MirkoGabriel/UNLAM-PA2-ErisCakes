@@ -72,6 +72,26 @@ namespace ErisCakesWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<BakeryRequest>> PostBakeryRequest(BakeryRequest bakeryRequest)
         {
+            if(bakeryRequest.RecipeStatus != "Pendiente" && bakeryRequest.RecipeStatus != "Terminado" && bakeryRequest.RecipeStatus != "Demorado" && bakeryRequest.RecipeStatus != "Ingresado")
+            {
+                throw new ArgumentException("El estado del pedido solo se permiten valores como: 'Pendiente', 'Terminado', 'Ingresado' y 'Demorado'");
+            }
+            if (bakeryRequest.BillingStatus != "Aprobado" && bakeryRequest.BillingStatus != "Rechazado" && bakeryRequest.BillingStatus != "Pendiente")
+            {
+                throw new ArgumentException("El estado del presupuesto solo se permiten valores como: 'Aprobado', 'Rechazado' y 'Pendiente'");
+            }
+            if (bakeryRequest.BudgetPice < 0)
+            {
+                throw new ArgumentException("El precio del presupuesto tiene que se mayor a 0");
+            }
+            if (bakeryRequest.ShippingPrice < 0)
+            {
+                throw new ArgumentException("El precio del viaje tiene que se mayor a 0");
+            }
+            if (bakeryRequest.JobScore < 0 || bakeryRequest.JobScore > 1000)
+            {
+                throw new ArgumentException("La satisfaccion del cliente tiene que estar entre 0 y 1000");
+            }
             _bakeryRequestRepository.CreateBakeryRequest(bakeryRequest);
 
             return CreatedAtAction("PostBakeryRequest", new { id = bakeryRequest.Id }, bakeryRequest);

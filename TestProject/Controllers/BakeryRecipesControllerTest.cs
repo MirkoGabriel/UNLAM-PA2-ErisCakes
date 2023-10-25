@@ -26,7 +26,7 @@ namespace TestProject.Controllers
         }
 
         [Fact]
-        public void CreatBakeryRecipes_with_exception()
+        public void CreatBakeryRecipes_with_exception_invalid_price()
         {
             BakeryRecipe bakeryRecipe = new BakeryRecipe();
             bakeryRecipe.Name = "Tiramisu";
@@ -34,6 +34,7 @@ namespace TestProject.Controllers
             bakeryRecipe.Ingredients = "";
             bakeryRecipe.Procedure = "";
             bakeryRecipe.Price = -21;
+
             var controller = new BakeryRecipesController(_bakeryRecipesRepository, _mapper);
             var result = controller.PostBakeryRecipe(bakeryRecipe);
             result.Exception.Message.Should().Be("One or more errors occurred. (Recipe price must be gratter than 0)");    
@@ -48,6 +49,7 @@ namespace TestProject.Controllers
             bakeryRecipe.Ingredients = "";
             bakeryRecipe.Procedure = "";
             bakeryRecipe.Price = 21;
+
             var controller = new BakeryRecipesController(_bakeryRecipesRepository, _mapper);
             var result = controller.PostBakeryRecipe(bakeryRecipe);
             result.Should().NotBeNull();   

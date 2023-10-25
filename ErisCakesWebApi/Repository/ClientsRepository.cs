@@ -46,9 +46,9 @@ namespace ErisCakesWebApi.Repository
 
         public void DeleteClient(int id)
         {
-            var client = _context.Clients.FindAsync(id);
+            var client = _context.Clients.Find(id);
             _context.Remove(client);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }
