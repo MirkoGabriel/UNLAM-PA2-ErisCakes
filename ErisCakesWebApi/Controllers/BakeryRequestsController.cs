@@ -57,13 +57,9 @@ namespace ErisCakesWebApi.Controllers
 
         // PUT: api/BakeryRequests/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBakeryRequest(int id, BakeryRequest bakeryRequest)
+        [HttpPut]
+        public async Task<IActionResult> PutBakeryRequest(BakeryRequest bakeryRequest)
         {
-            if (id != bakeryRequest.Id)
-            {
-                return BadRequest();
-            }
             return Ok(_bakeryRequestRepository.EditBakeryRequest(bakeryRequest));
         }
 
@@ -102,7 +98,7 @@ namespace ErisCakesWebApi.Controllers
         public async Task<IActionResult> DeleteBakeryRequest(int id)
         {
             _bakeryRequestRepository.DeleteBakeryRequest(id);
-            return Ok();
+            return NoContent();
         }
     }
 }

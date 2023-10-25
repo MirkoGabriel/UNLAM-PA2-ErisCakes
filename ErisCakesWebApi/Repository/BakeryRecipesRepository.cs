@@ -30,17 +30,9 @@ namespace ErisCakesWebApi.Repository
 
         public BakeryRecipe EditBakeryRecipe(BakeryRecipe bakeryRecipe)
         {
-            var dbBakeryRecipe = _context.BakeryRecipes.First(br => br.Id == bakeryRecipe.Id);
-            dbBakeryRecipe.Name = bakeryRecipe.Name;
-            dbBakeryRecipe.Kind = bakeryRecipe.Kind;
-            dbBakeryRecipe.Name = bakeryRecipe.Name;
-            dbBakeryRecipe.Ingredients = bakeryRecipe.Ingredients;
-            dbBakeryRecipe.Procedure = bakeryRecipe.Procedure;
-            dbBakeryRecipe.Price = bakeryRecipe.Price;
+            _context.Entry(bakeryRecipe).State = EntityState.Modified;
             _context.SaveChanges();
-
             return bakeryRecipe;
-
         }
 
 

@@ -23,26 +23,14 @@ namespace ErisCakesWebApi.Repository
 
         public void DeleteBakeryRequest(int id)
         {
-            var bakeryRequest = _context.BakeryRequests.FindAsync(id);
+            var bakeryRequest = _context.BakeryRequests.Find(id);
             _context.Remove(bakeryRequest);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public BakeryRequest EditBakeryRequest(BakeryRequest bakeryRequest)
         {
-            var dbBakeryRequest = _context.BakeryRequests.First(br => br.Id == bakeryRequest.Id);
-            dbBakeryRequest.RecipeStatus = bakeryRequest.RecipeStatus;
-            dbBakeryRequest.BillingStatus = bakeryRequest.BillingStatus;
-            dbBakeryRequest.BudgetPice = bakeryRequest.BudgetPice;
-            dbBakeryRequest.AdmissionDate = bakeryRequest.AdmissionDate;
-            dbBakeryRequest.EstimateDeliveryDate = bakeryRequest.EstimateDeliveryDate;
-            dbBakeryRequest.HomeDelivery = bakeryRequest.HomeDelivery;
-            dbBakeryRequest.ShippingPrice = bakeryRequest.ShippingPrice;
-            dbBakeryRequest.AdditionalComments = bakeryRequest.AdditionalComments;
-            dbBakeryRequest.JobScore = bakeryRequest.JobScore;
-            dbBakeryRequest.ClientId = bakeryRequest.ClientId;
-            dbBakeryRequest.BakeryRequestRecipes = bakeryRequest.BakeryRequestRecipes;
-            //_context.Entry(bakeryRequest).State = EntityState.Modified;
+            _context.Entry(bakeryRequest).State = EntityState.Modified;
             _context.SaveChanges();
             return bakeryRequest;
 

@@ -33,12 +33,7 @@ namespace ErisCakesWebApi.Repository
 
         public Client EditClient(Client client)
         {
-            var dbClient = _context.Clients.First(c => c.Id == client.Id);
-            dbClient.Name = client.Name;
-            dbClient.Email = client.Email;
-            dbClient.Phone = client.Phone;
-            dbClient.Address = client.Address;
-
+            _context.Entry(client).State = EntityState.Modified;
             _context.SaveChanges();
             return client;
 
