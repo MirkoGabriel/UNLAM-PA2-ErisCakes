@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using System.ComponentModel.DataAnnotations;
 
 namespace ErisCakesWebApi.Models
 {

@@ -62,7 +62,8 @@ namespace ErisCakesWebApi.Controllers
         {
           if(bakeryRecipe.Price < 0)
           {
-              throw new ArgumentException("Recipe price must be gratter than 0");
+              //throw new ArgumentException("Recipe price must be gratter than 0");
+              return NotFound("Recipe price must be gratter than 0");
           }
             _bakeryRecipesRepository.CreateBakeryRecipe(bakeryRecipe);
 
