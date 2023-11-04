@@ -1,0 +1,386 @@
+{
+	"info": {
+		"_postman_id": "1a52b332-8321-4d55-937c-ba056f7e6d59",
+		"name": "ErisCakes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13401444"
+	},
+	"item": [
+		{
+			"name": "BakeryRecipes",
+			"item": [
+				{
+					"name": "getBakeryRecipes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/BakeryRecipes",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"BakeryRecipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBakeryRecipeById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/BakeryRecipes/1",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"BakeryRecipes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postBakeryRecipes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"name\": \"chocotorta\",\r\n  \"kind\": \"postre\",\r\n  \"ingredients\": \"chocolinas dulce de cleche\",\r\n  \"procedure\": \"mojar galletitas y armar\",\r\n  \"price\": 780\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/BakeryRecipes",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"BakeryRecipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putBakeryRecipes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 7,\r\n  \"name\": \"chocotorta\",\r\n  \"kind\": \"postre\",\r\n  \"ingredients\": \"chocolinas dulce de leche\",\r\n  \"procedure\": \"mojar galletitas y armar 5 pisos\",\r\n  \"price\": 1500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/BakeryRecipes/",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"BakeryRecipes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBakeryRecipes",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/BakeryRecipes/6",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"BakeryRecipes",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BakeryRequests",
+			"item": [
+				{
+					"name": "getBakeryRequests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/BakeryRequests",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"BakeryRequests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBakeryRequestsById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/BakeryRequests/getById/1",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"BakeryRequests",
+								"getById",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBakeryRequestsByStatus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/BakeryRequests/getByStatus/pendent",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"BakeryRequests",
+								"getByStatus",
+								"pendent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postBakeryRequests",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"recipeStatus\": \"Ingresado\",\r\n  \"billingStatus\": \"Pendiente\",\r\n  \"budgetPice\": 0,\r\n  \"admissionDate\": \"2023-10-25T02:40:12.526Z\",\r\n  \"estimateDeliveryDate\": \"2023-10-25T02:40:12.526Z\",\r\n  \"homeDelivery\": true,\r\n  \"shippingPrice\": 0,\r\n  \"additionalComments\": \"Paga debito\",\r\n  \"jobScore\": 0,\r\n  \"clientId\": 2,\r\n  \"bakeryRequestRecipes\": [\r\n    {\r\n      \"bakeryRequestId\": 7,\r\n      \"bakeryRecipeId\": 1\r\n    },\r\n    {\r\n      \"bakeryRequestId\": 7,\r\n      \"bakeryRecipeId\": 2\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/BakeryRequests",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"BakeryRequests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putBakeryRequests",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 7,\r\n  \"recipeStatus\": \"Aprobado\",\r\n  \"billingStatus\": \"Pendiente\",\r\n  \"budgetPice\": 0,\r\n  \"admissionDate\": \"2023-10-25T02:40:12.526Z\",\r\n  \"estimateDeliveryDate\": \"2023-10-25T02:40:12.526Z\",\r\n  \"homeDelivery\": true,\r\n  \"shippingPrice\": 0,\r\n  \"additionalComments\": \"Paga debito\",\r\n  \"jobScore\": 0,\r\n  \"clientId\": 2,\r\n  \"bakeryRequestRecipes\": [\r\n    {\r\n      \"bakeryRequestId\": 7,\r\n      \"bakeryRecipeId\": 1\r\n    },\r\n    {\r\n      \"bakeryRequestId\": 7,\r\n      \"bakeryRecipeId\": 2\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/BakeryRequests",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"BakeryRequests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBakeryRequests",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/BakeryRequests/1",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"BakeryRequests",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "getClients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/Clients",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"Clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getClientById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/Clients/1",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"Clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postClient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"name\": \"Juan\",\r\n  \"email\": \"juan@gmail.com\",\r\n  \"phone\": \"45454545\",\r\n  \"address\": \"av corrientes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/Clients",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"Clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putClient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"name\": \"Mirko\",\r\n  \"email\": \"mirkogabriel67@gmail.com\",\r\n  \"phone\": \"1169535720\",\r\n  \"address\": \"Fraga 850\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/Clients",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"Clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteClient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 3,\r\n  \"name\": \"Juan\",\r\n  \"email\": \"juan@gmail.com\",\r\n  \"phone\": \"45454545\",\r\n  \"address\": \"av forest\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURIErisCakes}}/api/Clients/3",
+							"host": [
+								"{{BaseURIErisCakes}}"
+							],
+							"path": [
+								"api",
+								"Clients",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
